@@ -1,10 +1,22 @@
-#include <main.hpp>
+#include <Arduino.h>
+#include <LightSensor.hpp>
+#include <MoistSensor.hpp>
 
-MoistureController *moistureController;
+ISensor *sensors[2];
 
 void setup() {
-    Serial.begin(MONITOR_BAUDRATE);
-    moistureController = new MoistureController();
+    Serial.begin(115200);
+
+    sensors[0] = new LightSensor();
+    sensors[1] = new MoistSensor();
 }
 
-void loop() { moistureController->loop(); }
+void loop() {
+    for (ISensor *const sensor : sensors) {
+        sensor->ReadData();
+        double_t data = sensor->GetData();
+        Serial.println(data);
+        // TODO: do
+    }
+    delay(500);
+}
