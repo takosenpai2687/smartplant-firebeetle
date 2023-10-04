@@ -1,37 +1,33 @@
-#ifndef __MOISTURE_HPP__
-#define __MOISTURE_HPP__
+#pragma once
 
 #include <Arduino.h>
-#include <math.h>
-
-#include <rgb.hpp>
+#include <cmath>
+#include <led.hpp>
 
 #define MOISTURE_PIN A0
-#define MOISTURE_THRESHOLD_WET 666
-#define MOISTURE_THRESHOLD_DRY 333
 
-inline int read_moisture() {
-    const int& moisture = analogRead(MOISTURE_PIN);
-    return min(1000, moisture);
-}
+constexpr uint16_t MOISTURE_CAP = 2500;
 
-inline double get_percentage_moisture(const int& moisture) {
-    return (double)moisture / 1000.0 * 100.0;
-}
+class MoistureController {
+  private:
+    double value;
+    LedController *led;
 
-inline void show_moisture_rgb(const int& moisture) {
-    // 0 ~ 333: too dry
-    if (moisture < MOISTURE_THRESHOLD_DRY) {
-        show_red();
-        return;
+  public:
+    MoistureController() {
+        this->led = new LedController(MOISTURE_SUCCESS_PIN, MOISTURE_ERROR_PIN);
     }
-    // 333 ~ 666: normal
-    if (moisture < MOISTURE_THRESHOLD_WET) {
-        show_green();
-        return;
+    void loop() {
+        this->read();
+        bool isNormal = this->value > 30 && this->value < 60;
+        Serial.printf("Moisture:\t%.2f\%\t<%s>\n", this->value,
+                      isNormal ? "NORMAL" : "ERROR");
+        this->led->setStatus(isNormal ? LedStatus::SUCCESS : LedStatus::ERROR);
+        delay(250);
     }
-    // 666 ~ 1000: too wet
-    show_blue();
-}
 
-#endif  // __MOISTURE_HPP__
+    void read() {
+        uint16_t rawValue = min(analogRead(MOISTURE_PIN), MOISTURE_CAP);
+        this->value = map(rawValue, 0, MOISTURE_CAP, 0, 100);
+    }
+};

@@ -1,16 +1,10 @@
 #include <main.hpp>
 
+MoistureController *moistureController;
+
 void setup() {
     Serial.begin(MONITOR_BAUDRATE);
-    setup_rgb();
+    moistureController = new MoistureController();
 }
 
-void loop() {
-    const int& moisture = read_moisture();
-    show_moisture_rgb(moisture);
-    Serial.printf("Moisture is: %d\n", moisture);
-    // Light
-    const double& brightness = read_brightness();
-    Serial.printf("Brightness is: %.2f\n", brightness);
-    delay(500);
-}
+void loop() { moistureController->loop(); }

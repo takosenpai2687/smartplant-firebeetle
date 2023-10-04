@@ -2,10 +2,8 @@
 #define __MAIN_HPP__
 
 #include <Arduino.h>
-
-#include <light.hpp>
+#include <led.hpp>
 #include <moisture.hpp>
-#include <rgb.hpp>
 
 /**
  * Arduino setup
