@@ -1,8 +1,8 @@
 #pragma once
 
+#include "ISensor.hpp"
+#include "LedController.hpp"
 #include <Arduino.h>
-#include <ISensor.hpp>
-#include <LedController.hpp>
 
 namespace SmartPlant {
 
@@ -21,20 +21,10 @@ class LightSensor : public ISensor {
     static constexpr uint16_t lightOutMax = 100;
 
   public:
-    LightSensor()
-        : ISensor("light"), mLightValue(0), mLed(new LedController(successPin, errorPin)) {}
-
-    void ReadData() override {
-        // Read sensor input
-        const uint16_t lightInput = min(analogRead(pinSensor), lightInMax);
-        // Calibrate sensor input to output 0-100%
-        this->mLightValue = map(lightInput, 0, lightInMax, 0, lightOutMax);
-        // TODO: do something with this value
-    }
-
-    const double_t GetData() const override { return this->mLightValue; }
-
-    ~LightSensor() { delete this->mLed; }
+    LightSensor();
+    void ReadData() override;
+    const double_t GetData() const override;
+    ~LightSensor();
 };
 
 } // namespace SmartPlant
