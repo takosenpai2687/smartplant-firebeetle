@@ -21,11 +21,11 @@ class MoistSensor : public ISensor {
 
     void UpdateLED() {
         const bool isNormal = this->moistValue > 30 && this->moistValue < 60;
-        if (isNormal) {
-            this->mLed->Success();
-        } else {
+        if (!isNormal) {
             this->mLed->Error();
+            return;
         }
+        this->mLed->Success();
     }
 
   public:
@@ -36,8 +36,10 @@ class MoistSensor : public ISensor {
     void ReadData() override {
         // Read sensor input
         const uint16_t moistInput = min(analogRead(pinSensor), moistInMax);
+
         // Calibrate sensor input to output 0-100%
         this->moistValue = map(moistInput, 0, moistInMax, 0, moistOutMax);
+
         // Set LED status
         this->UpdateLED();
     }
