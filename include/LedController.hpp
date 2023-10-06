@@ -2,8 +2,7 @@
 
 #include <Arduino.h>
 
-#define LIGHT_SUCCESS_PIN D6
-#define LIGHT_ERROR_PIN D5
+namespace SmartPlant {
 
 enum class LedStatus { SUCCESS, ERROR, OFF };
 
@@ -30,8 +29,7 @@ class LedController {
 
   public:
     LedController(uint8_t successPin, uint8_t errorPin)
-        : mStatus(LedStatus::OFF), mSuccessPin(successPin),
-          mErrorPin(errorPin) {
+        : mStatus(LedStatus::OFF), mSuccessPin(successPin), mErrorPin(errorPin) {
         // Set pin modes
         pinMode(mSuccessPin, OUTPUT);
         pinMode(mErrorPin, OUTPUT);
@@ -43,3 +41,5 @@ class LedController {
     void Error() { this->SetStatus(LedStatus::ERROR); }
     void Off() { this->SetStatus(LedStatus::OFF); }
 };
+
+} // namespace SmartPlant

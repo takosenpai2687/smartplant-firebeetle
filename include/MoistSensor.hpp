@@ -5,6 +5,8 @@
 #include <LedController.hpp>
 #include <cmath>
 
+namespace SmartPlant {
+
 class MoistSensor : public ISensor {
   private:
     double_t moistValue;
@@ -30,8 +32,7 @@ class MoistSensor : public ISensor {
 
   public:
     MoistSensor()
-        : ISensor("moist"), moistValue(0),
-          mLed(new LedController(pinSuccess, pinError)) {}
+        : ISensor("moist"), moistValue(0), mLed(new LedController(pinSuccess, pinError)) {}
 
     void ReadData() override {
         // Read sensor input
@@ -44,7 +45,9 @@ class MoistSensor : public ISensor {
         this->UpdateLED();
     }
 
-    double_t GetData() const override { return this->moistValue; }
+    const double_t GetData() const override { return this->moistValue; }
 
     ~MoistSensor() { delete this->mLed; }
 };
+
+} // namespace SmartPlant

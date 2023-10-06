@@ -4,6 +4,8 @@
 #include <ISensor.hpp>
 #include <LedController.hpp>
 
+namespace SmartPlant {
+
 class LightSensor : public ISensor {
   private:
     double_t mLightValue;
@@ -20,8 +22,7 @@ class LightSensor : public ISensor {
 
   public:
     LightSensor()
-        : ISensor("light"), mLightValue(0),
-          mLed(new LedController(successPin, errorPin)) {}
+        : ISensor("light"), mLightValue(0), mLed(new LedController(successPin, errorPin)) {}
 
     void ReadData() override {
         // Read sensor input
@@ -31,7 +32,9 @@ class LightSensor : public ISensor {
         // TODO: do something with this value
     }
 
-    double_t GetData() const override { return this->mLightValue; }
+    const double_t GetData() const override { return this->mLightValue; }
 
     ~LightSensor() { delete this->mLed; }
 };
+
+} // namespace SmartPlant

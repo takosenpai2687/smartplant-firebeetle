@@ -2,24 +2,26 @@
 #include <HttpClient.hpp>
 #include <LightSensor.hpp>
 #include <MoistSensor.hpp>
-#include <map>
 
-HttpClient *httpClient;
-ISensor *sensors[2];
+constexpr uint32_t delayMs = 3000;
+constexpr uint32_t baudRate = 115200;
+
+SmartPlant::HttpClient *httpClient;
+SmartPlant::ISensor *sensors[2];
 
 void setup() {
-    Serial.begin(115200);
-    sensors[0] = new LightSensor();
-    sensors[1] = new MoistSensor();
-    httpClient = new HttpClient(sensors, 2);
+    Serial.begin(baudRate);
+    sensors[0] = new SmartPlant::LightSensor();
+    sensors[1] = new SmartPlant::MoistSensor();
+    httpClient = new SmartPlant::HttpClient(sensors, 2);
 }
 
 void loop() {
-    for (ISensor *const sensor : sensors) {
+    for (SmartPlant::ISensor *const sensor : sensors) {
         sensor->ReadData();
         httpClient->SetData(sensor->GetName(), sensor->GetData());
     }
     // Send the data all at once
     httpClient->SendData();
-    delay(3000);
+    delay(delayMs);
 }
