@@ -30,7 +30,7 @@ class MoistSensor : public ISensor {
 
   public:
     MoistSensor()
-        : ISensor("Moisture Sensor"), moistValue(0),
+        : ISensor("moist"), moistValue(0),
           mLed(new LedController(pinSuccess, pinError)) {}
 
     void ReadData() override {

@@ -20,7 +20,7 @@ class LightSensor : public ISensor {
 
   public:
     LightSensor()
-        : ISensor("Light Sensor"), mLightValue(0),
+        : ISensor("light"), mLightValue(0),
           mLed(new LedController(successPin, errorPin)) {}
 
     void ReadData() override {
