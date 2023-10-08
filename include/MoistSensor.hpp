@@ -17,7 +17,7 @@ class MoistSensor : public ISensor {
     static constexpr uint8_t pinSensor = A0;
 
     // Constants
-    static constexpr uint16_t moistInMax = 2500;
+    static constexpr uint16_t moistInMax = 1000;
     static constexpr uint16_t moistOutMax = 100;
 
     void UpdateLED();
