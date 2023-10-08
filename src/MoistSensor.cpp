@@ -16,6 +16,7 @@ void MoistSensor::UpdateLED() {
 
 void MoistSensor::ReadData() {
     // Read sensor input
+    analogReadResolution(10);
     const uint16_t moistInput = min(analogRead(pinSensor), moistInMax);
 
     // Calibrate sensor input to output 0-100%
