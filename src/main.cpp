@@ -3,7 +3,7 @@
 #include "MoistSensor.hpp"
 #include <Arduino.h>
 
-constexpr uint32_t delayMs = 3000;
+constexpr uint32_t delayMs = 500;
 constexpr uint32_t baudRate = 115200;
 
 SmartPlant::HttpClient *httpClient;

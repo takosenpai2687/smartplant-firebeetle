@@ -20,10 +20,10 @@ class HttpClient {
     std::map<String, double_t> dataMap;
 
     // TODO: Wifi config
-    static constexpr const char *const apiUrl = "http://xxx";
+    static constexpr const char *const apiUrl = "http://smartplant-web.vercel.app";
     static const uint16_t apiPort = 80;
-    static constexpr const char *const ssid = "xxx";
-    static constexpr const char *const password = "xxx";
+    static constexpr const char *const ssid = "Irene";
+    static constexpr const char *const password = "12345678";
     static constexpr int maxRetries = 5;
     static constexpr int retryDelay = 500;
 
