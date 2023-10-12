@@ -22,6 +22,7 @@ void loop() {
         Serial.println(sensor->GetName()+" "+sensor->GetData());
         // httpClient->SetData(sensor->GetName(), sensor->GetData());
     }
+    Serial.println("");
     // Send the data all at once
     // httpClient->SendData();
     delay(delayMs);

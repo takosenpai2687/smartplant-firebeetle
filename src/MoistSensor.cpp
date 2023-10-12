@@ -3,15 +3,25 @@
 namespace SmartPlant {
 
 MoistSensor::MoistSensor()
-    : ISensor("moist"), moistValue(0), mLed(new LedController(pinSuccess, pinError)) {}
+    : ISensor("Soil Moisture (%): "), moistValue(0), mLed(new LedController(pinSuccess, pinError)) {}
 
 void MoistSensor::UpdateLED() {
-    const bool isNormal = this->moistValue > 30 && this->moistValue < 60;
-    if (!isNormal) {
+    const bool isTooLow = this->moistValue < 10;
+    const bool isTooHigh = this->moistValue > 60;
+
+    if (isTooLow) {
         this->mLed->Error();
         return;
     }
-    this->mLed->Success();
+    else if (isTooHigh) {
+        this->mLed->Error();
+        delay(500);
+        this->mLed->Off();
+        delay(500);
+    }
+    else {
+        this->mLed->Off();
+    }
 }
 
 void MoistSensor::ReadData() {
