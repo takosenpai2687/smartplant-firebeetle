@@ -3,7 +3,26 @@
 namespace SmartPlant {
 
 LightSensor::LightSensor()
-    : ISensor("light"), mLightValue(0), mLed(new LedController(successPin, errorPin)) {}
+    : ISensor("Light Intensity (%): "), mLightValue(0), mLed(new LedController(successPin, errorPin)) {}
+
+void LightSensor::UpdateLED() {
+    const bool isTooLow = this->mLightValue < 2;
+    const bool isTooHigh = this->mLightValue > 95;
+
+    if (isTooLow) {
+        this->mLed->Error();
+        return;
+    }
+    else if (isTooHigh) {
+        this->mLed->Error();
+        delay(500);
+        this->mLed->Off();
+        delay(500);
+    }
+    else {
+        this->mLed->Off();
+    }
+}
 
 void LightSensor::ReadData() {
     // Read sensor input
@@ -11,6 +30,9 @@ void LightSensor::ReadData() {
     // Calibrate sensor input to output 0-100%
     this->mLightValue = map(lightInput, 0, lightInMax, 0, lightOutMax);
     // TODO: do something with this value
+
+    // Set LED status
+    this->UpdateLED();
 }
 
 const double_t LightSensor::GetData() const { return this->mLightValue; }

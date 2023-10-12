@@ -12,13 +12,15 @@ class LightSensor : public ISensor {
     LedController *mLed;
 
     // Pins
-    static constexpr uint8_t pinSensor = A0;
+    static constexpr uint8_t pinSensor = A1;
     static constexpr uint8_t successPin = D5;
-    static constexpr uint8_t errorPin = D6;
+    static constexpr uint8_t errorPin = D3;//D6;
 
     // Constants
     static constexpr uint16_t lightInMax = 1024;
     static constexpr uint16_t lightOutMax = 100;
+
+    void UpdateLED();
 
   public:
     LightSensor();

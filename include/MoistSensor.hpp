@@ -12,8 +12,8 @@ class MoistSensor : public ISensor {
     LedController *mLed;
 
     // Pins
-    static constexpr uint8_t pinSuccess = D2;
-    static constexpr uint8_t pinError = D3;
+    static constexpr uint8_t pinSuccess = D5;//D2;
+    static constexpr uint8_t pinError = D2;
     static constexpr uint8_t pinSensor = A0;
 
     // Constants
