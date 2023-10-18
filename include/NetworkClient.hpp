@@ -3,43 +3,38 @@
 
 #include "ISensor.hpp"
 #include <Arduino.h>
+#include <HTTPClient.h>
 #include <WiFi.h>
 #include <map>
 
 namespace SmartPlant {
 
-class HttpClient {
+class NetworkClient {
   public:
-    HttpClient(ISensor *const sensors[], const size_t &sensorCount);
+    NetworkClient(ISensor *const sensors[], const size_t &sensorCount);
 
     void SetData(const String &name, const double_t &data);
     void SendData();
-    ~HttpClient();
+    ~NetworkClient();
 
   private:
     WiFiClient wifiClient;
+    HTTPClient httpClient;
     std::map<String, double_t> dataMap;
 
     // TODO: Wifi config
-    static constexpr const char *const apiUrl = "http://smartplant-web.vercel.app";
-    static const uint16_t apiPort = 80;
-    static constexpr const char *const ssid = "Irene";
-    static constexpr const char *const password = "12345678";
+    static constexpr const char *const apiUrl = "http://172.20.10.10:8080/api/data";
+    static constexpr const char *const ssid = "iPhone";
+    static constexpr const char *const password = "liu123321";
     static constexpr int maxRetries = 5;
     static constexpr int retryDelay = 500;
+    static constexpr const char *deviceName = "test-oct-18";
 
     /**
      * @brief Connect to wifi
      *
      */
     void ConnectWifi();
-    /**
-     * @brief Get the Headers object
-     *
-     * @param contentLen : content length
-     * @return String : headers
-     */
-    const String GetHeaders(const size_t contentLen) const;
     /**
      * @brief Convert data map to string
      *

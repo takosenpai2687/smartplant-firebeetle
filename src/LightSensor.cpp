@@ -3,7 +3,7 @@
 namespace SmartPlant {
 
 LightSensor::LightSensor()
-    : ISensor("Light Intensity (%): "), mLightValue(0), mLed(new LedController(successPin, errorPin)) {}
+    : ISensor("light"), mLightValue(0), mLed(new LedController(successPin, errorPin)) {}
 
 void LightSensor::UpdateLED() {
     const bool isTooLow = this->mLightValue < 2;

@@ -3,7 +3,7 @@
 namespace SmartPlant {
 
 MoistSensor::MoistSensor()
-    : ISensor("Soil Moisture (%): "), moistValue(0), mLed(new LedController(pinSuccess, pinError)) {}
+    : ISensor("moisture"), moistValue(0), mLed(new LedController(pinSuccess, pinError)) {}
 
 void MoistSensor::UpdateLED() {
     const bool isTooLow = this->moistValue < 10;
