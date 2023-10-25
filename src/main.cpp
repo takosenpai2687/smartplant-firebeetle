@@ -3,7 +3,7 @@
 #include "NetworkClient.hpp"
 #include <Arduino.h>
 
-constexpr uint32_t delayMs = 500;
+constexpr uint32_t delayMs = 1000;
 constexpr uint32_t baudRate = 115200;
 
 SmartPlant::NetworkClient *networkClient;
