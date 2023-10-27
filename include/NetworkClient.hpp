@@ -23,12 +23,12 @@ class NetworkClient {
     std::map<String, double_t> dataMap;
 
     // TODO: Wifi config
-    static constexpr const char *const apiUrl = "http://172.20.10.10:8080/api/data";
+    static constexpr const char *const apiUrl = "http://172.20.10.10:3000/api/data";
     static constexpr const char *const ssid = "iPhone";
     static constexpr const char *const password = "liu123321";
     static constexpr int maxRetries = 5;
     static constexpr int retryDelay = 500;
-    static constexpr const char *deviceName = "test-oct-18";
+    static constexpr const char *deviceName = "test-oct-27";
 
     /**
      * @brief Connect to wifi
